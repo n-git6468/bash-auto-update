@@ -11,20 +11,20 @@ auto-update() {
 	#EXITCODE = 100 --> Successful execution, updates available
 	dnf check-update
 	local EXITCODE=$?
-	
+
 	#Used for testing
 	echo $EXITCODE
 
 	#TODO add basic journalctl interop success & unknown failure conditions
 	#TODO add advanced journalctl interop for dnf update -y. Present actions taken on packages within log in a pleasing & digestible manner.
-	if [[ $EXITCODE = 0 ]] 
-		then echo "Success, no updates available."
+	if [[ $EXITCODE = 0 ]]
+		then echo "Daily update status: success, no updates available." >> systemd-cat
 	elif [[ $EXITCODE = 1 ]]
 		then echo "Uknown failure, exit code 1."
 	elif [[ $EXITCODE = 100 ]]
 		#TODO add dnf update -y
 		then echo "dnf update -y"
-	fi	
+	fi
 }
 
 auto-update
