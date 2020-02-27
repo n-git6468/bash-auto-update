@@ -4,14 +4,15 @@ PATH=/usr/sbin:/usr/bin:/sbin:/bin
 #TODO log dnf upgrade as one single journalctl entry, currently every dnf STDOUT line is a single journalctl entry.
 
 auto-update() {
-	  #EXITCODE = 0 --> Successful execution, no updates available
-	  #EXITCODE = 1 --> Unsuccessful execution
-	  #EXITCODE = 100 --> Successful execution, updates available
+    #EXITCODE = 0 --> Successful execution, no updates available
+    #EXITCODE = 1 --> Unsuccessful execution
+    #EXITCODE = 100 --> Successful execution, updates available
     #See https://dnf.readthedocs.io/en/latest/command_ref.html for additional dnf exit codes
     #Valid log levels -- info, warning, emerg
 
     #dnf checks for updates
-	  dnf check-update
+	  dnf check-update 2>&1 /dev/null
+
     #exit code is captured
 	  local EXITCODE=$?
 
