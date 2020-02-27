@@ -2,6 +2,7 @@
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 #Synopsis: Execute dnf check-update, capture exit code, based upon exit code, journal success, journal failure, journal success & update.
 #TODO log dnf upgrade as one single journalctl entry, currently every dnf STDOUT line is a single journalctl entry.
+#Not possible w/ systemd-cat. May have to write custom c application or something comparable to do this.
 
 auto-update() {
     #EXITCODE = 0 --> Successful execution, no updates available
