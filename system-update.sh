@@ -19,13 +19,13 @@ auto-update() {
 
     #If no packages are available for update, log "...no updates available." to journalctl as 'dnf-cron-update' level info.
 	  if [[ $EXITCODE = 0 ]]
-    then echo "Daily package update status: success, no updates available." | systemd-cat -t dnf-cron-update -p info
+    then echo "Daily package update status: success, no updates available." | systemd-cat -t dnf-cron-update -p info && exit 0
     #If dnf update check fails, log failure to journalctl as 'dnf-cron-update' level warning
 	  elif [[ $EXITCODE = 1 ]]
-    then echo "Daily package update status: unknown failure, exit code 1." | systemd-cat -t dnf-cron-update -p warning
+    then echo "Daily package update status: unknown failure, exit code 1." | systemd-cat -t dnf-cron-update -p warning ; exit 1
     #If package updates are available, log actions to journalctl as 'dnf-cron-update' level info
 	  elif [[ $EXITCODE = 100 ]]
-    then dnf update -y | systemd-cat -t dnf-cron-update -p info
+    then dnf update -y | systemd-cat -t dnf-cron-update -p info && exit 0
     fi
 }
 
